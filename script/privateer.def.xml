@@ -268,7 +268,7 @@
                 <className>CString</className>
                 <qualifiers>
                     <onlyEnumerators>True</onlyEnumerators>
-                    <menuText>Essentials of glycobiology,washed out (Privateer exclusive)</menuText>
+                    <menuText>Old Style,GlycanBuilder</menuText>
                     <enumerators>essentials,privateer</enumerators>
                     <default>privateer</default>
                 </qualifiers>
@@ -284,13 +284,42 @@
                 </qualifiers>
             </content>
 
+            <content id="BLOBS">
+                <className>CBoolean</className>
+                <qualifiers>
+                    <default>False</default>
+                </qualifiers>
+            </content>
+
+            <content id="BLOBSLEVEL">
+                <className>CFloat</className>
+                <qualifiers>
+                    <default>0.02</default>
+                    <allowUndefined>True</allowUndefined>
+                    <min>0.0001</min>
+                    <max>2.00</max>
+                    <charWidth>4</charWidth>
+                </qualifiers>
+            </content>
+
+            <content id="OLDSTYLE">
+                <className>CString</className>
+                <qualifiers>
+                    <onlyEnumerators>True</onlyEnumerators>
+                    <menuText>Old Privateer,GlycanBuilder</menuText>
+                    <enumerators>original,glycanbuilder</enumerators>
+                    <default>glycanbuilder</default>
+                </qualifiers>
+            </content>
+
+            <!-- Glytoucan has to be the last arguement for some reason, need to fix this bs. -->
+
             <content id="GLYTOUCAN">
                 <className>CBoolean</className>
                 <qualifiers>
                     <default>True</default>
                 </qualifiers>
             </content>
-
         </container>
 
     </ccp4i2_body>

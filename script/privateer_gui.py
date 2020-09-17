@@ -54,13 +54,14 @@ class privateer_gui(CCP4TaskWidget.CTaskWidget):
     self.createLine( [ 'widget', 'XYZIN'])
     self.createLine( [ 'widget', 'F_SIGF' ] )
     self.createLine( [ 'label', 'Change the mask radius around the sugar atoms to', 'widget', 'RADIUSIN', 'label', 'Angstroems' ] )
+    self.createLine( [ 'widget', 'BLOBS', 'label', 'EXPERIMENTAL FEATURE: Scan for unmodelled Glycosylation, change Electron Density Blob Threshold level to', 'widget', 'BLOBSLEVEL', 'label' ])
     self.closeSubFrame ( )
 
     self.createLine( [ 'subtitle', 'Glycosylation analysis', 'Here you can set up how the diagrams will look like. The schemes will follow the Essentials of glycobiology 3rd edition notation with a choice of colours. They are vector-based and can be used in publications straight away.' ] )
     self.openSubFrame ( frame=[True] )
 
-    self.createLine( [ 'label', 'Create glycan diagrams in', 'widget', 'VERTICAL', 'label', 'format with', 'widget', 'INVERT', 'label', 'outlines' ])
-    self.createLine( [ 'label', 'Colour them using the' , 'widget', 'ESSENTIALS' , 'label' , 'colour scheme' ])
+    self.createLine( [ 'label', 'Create glycan diagrams in', 'widget', 'OLDSTYLE', 'label', 'style, in', 'widget', 'VERTICAL', 'label', 'orientation' ])
+    self.createLine( [ 'label', 'Colour them using the' , 'widget', 'ESSENTIALS' , 'label' , 'colour scheme with ', 'widget', 'INVERT', 'label', 'outlines' ])
     self.createLine( [ 'label', 'Validate glycan structures assuming a', 'widget', 'EXPRESSION', 'label', 'expression system' ])
     self.createLine( [ 'widget', 'GLYTOUCAN', 'label', 'Validate Glycans with GlyTouCan and GlyConnect databases'])
     self.closeSubFrame ( )

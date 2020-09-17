@@ -114,6 +114,15 @@ class privateer(CPluginScript):
       if self.container.controlParameters.INVERT == "white" :
         self.appendCommandScript("invert")
 
+      if self.container.controlParameters.OLDSTYLE == "original":
+        self.appendCommandScript("oldstyle")
+
+      if self.container.controlParameters.BLOBS :
+        self.appendCommandScript("check-unmodelled")
+        self.appendCommandScript("blobs_threshold %s"%(str(self.container.controlParameters.BLOBSLEVEL)))
+
+      # Need to a fix bug here where I cant put GLyToucan after expression and expression before glytoucan
+
       if self.container.controlParameters.GLYTOUCAN :
         self.appendCommandScript("glytoucan")
 

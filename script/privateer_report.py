@@ -210,17 +210,13 @@ class privateer_report(Report):
         directory = jobInfo['fileroot']
         for glycan in self.xmlnode.xpath ( "//ValidationData/Glycan/GlycanSVG" ) :
 
-            wurcs = self.xmlnode.xpath ( "//ValidationData/Glycan/GlycanWURCS" )[index].text
-            gtcid = self.xmlnode.xpath ( "//ValidationData/Glycan/GlycanGTCID" )[index].text
-            glyconnectid = self.xmlnode.xpath ( "//ValidationData/Glycan/GlycanGlyConnectID" )[index].text
-
             if chain != self.xmlnode.xpath ( "//ValidationData/Glycan/GlycanChain" )[index].text :
                 chain = self.xmlnode.xpath ( "//ValidationData/Glycan/GlycanChain" )[index].text
                 treesFold.append ( '<p style="font-size:130%; padding:2px; margin-top:20px; margin-bottom:0px; font-weight:bold; margin-left:15px; clear:both"> Chain ' + chain + '</p>' )
                 chaindiv = treesFold.addDiv(style="border-width: 1px; padding-top: 10px; padding-bottom:10px; border-color:black; border-style:solid; border-radius:15px;")
 #                treesFold.append ( '<p style="background-color:rgb(145,203,219); padding:2px;' +\
 #                        'margin-top:20px; margin-bottom:12px; clear:both"> Chain ' + chain + '</p>' )
-            index = index + 1
+            
 
             svg_filename = os.path.join ( directory, glycan.text )
 
@@ -241,61 +237,72 @@ class privateer_report(Report):
             
 
             svg_div.append ( svg_string )
+
+            wurcs = self.xmlnode.xpath ( "//ValidationData/Glycan/GlycanWURCS" )[index].text
             svg_div.append ( '<p style="font-size:130%; max-width:400px; font-weight:bold"> ' + wurcs + ' </p> ')
-            
-            if gtcid != "Unable to find GlyTouCan ID":
-                svg_div.append ( '<p style="font-size:130%; max-width:' + svg_width + 'px; font-weight:bold">GlyTouCan ID:<a href="https://glytoucan.org/Structures/Glycans/' + gtcid + '">' + gtcid + '</a></p> ')
-            else:
-                svg_div.append ( '<p style="font-size:130%; max-width:' + svg_width + 'px; font-weight:bold"> GlyTouCan ID: ' + 'Not Found' + ' </p> ')
-            
-            if glyconnectid != "Unable to find GlyConnect ID":
-                svg_div.append ( '<p style="font-size:130%; max-width:' + svg_width + 'px; font-weight:bold">GlyConnect ID:<a href="https://glyconnect.expasy.org/browser/structures/' + glyconnectid + '">' + glyconnectid + '</a></p> ')
-            else:
-                svg_div.append ( '<p style="font-size:130%; max-width:' + svg_width + 'px; font-weight:bold">GlyConnect ID: ' + 'Not Found' + ' </p> ')
-                permutationsFold = svg_div.addFold ( label="Closest permutations detected on GlyConnect database", initiallyOpen=False )
-                permutationsdiv = permutationsFold.addDiv(style="border-width: 1px; padding-top: 10px; padding-bottom:10px; border-color:black; border-style:solid; border-radius:15px;")
-                
-                for permutation in self.xmlnode.xpath ( "//ValidationData/Glycan/GlycanPermutations" )[glycanindexforpermutation]:
-                    wurcspermutation = self.xmlnode.xpath ( "//ValidationData/Glycan/GlycanPermutations/GlycanPermutation/PermutationWURCS" )[permutationindex].text
-                    gtcidpermutation = self.xmlnode.xpath ( "//ValidationData/Glycan/GlycanPermutations/GlycanPermutation/PermutationGTCID" )[permutationindex].text
-                    glyconnectidpermutation = self.xmlnode.xpath ( "//ValidationData/Glycan/GlycanPermutations/GlycanPermutation/PermutationGlyConnectID" )[permutationindex].text
-                    permutationsvg = self.xmlnode.xpath ( "//ValidationData/Glycan/GlycanPermutations/GlycanPermutation/PermutationSVG" )[permutationindex].text
-                    permutationscore = self.xmlnode.xpath ( "//ValidationData/Glycan/GlycanPermutations/GlycanPermutation/PermutationScore" )[permutationindex].text
-                    anomerpermutations = self.xmlnode.xpath ( "//ValidationData/Glycan/GlycanPermutations/GlycanPermutation/anomerPermutations" )[permutationindex].text
-                    residuepermutations = self.xmlnode.xpath ( "//ValidationData/Glycan/GlycanPermutations/GlycanPermutation/residuePermutations" )[permutationindex].text
-                    residuedeletions = self.xmlnode.xpath ( "//ValidationData/Glycan/GlycanPermutations/GlycanPermutation/residueDeletions" )[permutationindex].text
 
-                    svg_filename_permutation = os.path.join ( directory, permutationsvg )
-
-                    svg_file_permutation = open(svg_filename_permutation, 'r')
-                    svg_string_permutation = svg_file_permutation.read()
-                    svg_file_permutation.close()
-
-                    # svg_string_partitioned_permutation = svg_string_permutation.partition("width=\"")
-                    # svg_width_permutation = ''
-                    # for symbol in svg_string_partitioned_permutation[2]:
-                    #     if symbol != "\"":
-                    #         svg_width_permutation = svg_width_permutation + symbol
-                    #     else:
-                    #         break
-
-                    permutationsdiv.append ( svg_string_permutation )
+            try:
+                if len(self.xmlnode.xpath ( "//ValidationData/Glycan/GlycanGTCID" )[index].text) != 0:
+                    gtcid = self.xmlnode.xpath ( "//ValidationData/Glycan/GlycanGTCID" )[index].text
+                    glyconnectid = self.xmlnode.xpath ( "//ValidationData/Glycan/GlycanGlyConnectID" )[index].text
+                    if gtcid != "Unable to find GlyTouCan ID":
+                        svg_div.append ( '<p style="font-size:130%; max-width:' + svg_width + 'px; font-weight:bold">GlyTouCan ID:<a href="https://glytoucan.org/Structures/Glycans/' + gtcid + '">' + gtcid + '</a></p> ')
+                    else:
+                        svg_div.append ( '<p style="font-size:130%; max-width:' + svg_width + 'px; font-weight:bold"> GlyTouCan ID: ' + 'Not Found' + ' </p> ')
                     
-                    permutationsdiv.append ( '<p style="font-size:130%; max-width:' + svg_width + 'px; font-weight:bold"> ' + wurcspermutation + ' </p> ')
-                    if float(permutationscore) <= 1:
-                        permutationsdiv.append ( '<p style="font-size:130%; max-width:' + svg_width + 'px; font-weight:bold"> Permutation Score(out of 100): <span style="color: #00ff00">' + permutationscore + '</span></p> ')
-                    elif float(permutationscore) > 1 and permutationscore <= 10:
-                        permutationsdiv.append ( '<p style="font-size:130%; max-width:' + svg_width + 'px; font-weight:bold"> Permutation Score(out of 100): <span style="color: #ffff00">' + permutationscore + '</span></p> ')
-                    elif float(permutationscore) > 10:
-                        permutationsdiv.append ( '<p style="font-size:130%; max-width:' + svg_width + 'px; font-weight:bold"> Permutation Score(out of 100): <span style="color: #ff3300">' + permutationscore + '</span></p> ')
-                    permutationsdiv.append ( '<p style="font-size:130%; max-width:' + svg_width + 'px; font-weight:bold"> Anomer Permutations: ' + anomerpermutations + '<br>Residue Permutations: ' + residuepermutations + '<br>Residue Deletions: ' + residuedeletions + '</br></br></p> ')
-                    permutationsdiv.append ( '<p style="font-size:130%; max-width:' + svg_width + 'px; font-weight:bold">GlyTouCan ID:<a href="https://glytoucan.org/Structures/Glycans/' + gtcidpermutation + '">' + gtcidpermutation + '</a>' 
-                    + '<br>GlyConnect ID:' + '<a href="https://glyconnect.expasy.org/browser/structures/' + glyconnectidpermutation + '">' + glyconnectidpermutation + '</a></br></p>')
+                    if glyconnectid != "Unable to find GlyConnect ID":
+                        svg_div.append ( '<p style="font-size:130%; max-width:' + svg_width + 'px; font-weight:bold">GlyConnect ID:<a href="https://glyconnect.expasy.org/browser/structures/' + glyconnectid + '">' + glyconnectid + '</a></p> ')
+                    else:
+                        svg_div.append ( '<p style="font-size:130%; max-width:' + svg_width + 'px; font-weight:bold">GlyConnect ID: ' + 'Not Found' + ' </p> ')
+                        
+                        permutationsFold = svg_div.addFold ( label="Closest permutations detected on GlyConnect database", initiallyOpen=False )
+                        permutationsdiv = permutationsFold.addDiv(style="border-width: 1px; padding-top: 10px; padding-bottom:10px; border-color:black; border-style:solid; border-radius:15px;")
+                        
+                        for permutation in self.xmlnode.xpath ( "//ValidationData/Glycan/GlycanPermutations" )[glycanindexforpermutation]:
+                            wurcspermutation = self.xmlnode.xpath ( "//ValidationData/Glycan/GlycanPermutations/GlycanPermutation/PermutationWURCS" )[permutationindex].text
+                            gtcidpermutation = self.xmlnode.xpath ( "//ValidationData/Glycan/GlycanPermutations/GlycanPermutation/PermutationGTCID" )[permutationindex].text
+                            glyconnectidpermutation = self.xmlnode.xpath ( "//ValidationData/Glycan/GlycanPermutations/GlycanPermutation/PermutationGlyConnectID" )[permutationindex].text
+                            permutationsvg = self.xmlnode.xpath ( "//ValidationData/Glycan/GlycanPermutations/GlycanPermutation/PermutationSVG" )[permutationindex].text
+                            permutationscore = self.xmlnode.xpath ( "//ValidationData/Glycan/GlycanPermutations/GlycanPermutation/PermutationScore" )[permutationindex].text
+                            anomerpermutations = self.xmlnode.xpath ( "//ValidationData/Glycan/GlycanPermutations/GlycanPermutation/anomerPermutations" )[permutationindex].text
+                            residuepermutations = self.xmlnode.xpath ( "//ValidationData/Glycan/GlycanPermutations/GlycanPermutation/residuePermutations" )[permutationindex].text
+                            residuedeletions = self.xmlnode.xpath ( "//ValidationData/Glycan/GlycanPermutations/GlycanPermutation/residueDeletions" )[permutationindex].text
+
+                            svg_filename_permutation = os.path.join ( directory, permutationsvg )
+
+                            svg_file_permutation = open(svg_filename_permutation, 'r')
+                            svg_string_permutation = svg_file_permutation.read()
+                            svg_file_permutation.close()
+
+                            # svg_string_partitioned_permutation = svg_string_permutation.partition("width=\"")
+                            # svg_width_permutation = ''
+                            # for symbol in svg_string_partitioned_permutation[2]:
+                            #     if symbol != "\"":
+                            #         svg_width_permutation = svg_width_permutation + symbol
+                            #     else:
+                            #         break
+
+                            permutationsdiv.append ( svg_string_permutation )
+                            
+                            permutationsdiv.append ( '<p style="font-size:130%; max-width:' + svg_width + 'px; font-weight:bold"> ' + wurcspermutation + ' </p> ')
+                            if float(permutationscore) <= 1.00:
+                                permutationsdiv.append ( '<p style="font-size:130%; max-width:' + svg_width + 'px; font-weight:bold"> Permutation Score(out of 100): <span style="color: #00ff00">' + permutationscore + '</span></p> ')
+                            elif float(permutationscore) > 1.00 and float(permutationscore) <= 10.00:
+                                permutationsdiv.append ( '<p style="font-size:130%; max-width:' + svg_width + 'px; font-weight:bold"> Permutation Score(out of 100): <span style="color: #ffa500">' + permutationscore + '</span></p> ')
+                            elif float(permutationscore) > 10.00:
+                                permutationsdiv.append ( '<p style="font-size:130%; max-width:' + svg_width + 'px; font-weight:bold"> Permutation Score(out of 100): <span style="color: #ff3300">' + permutationscore + '</span></p> ')
+                            permutationsdiv.append ( '<p style="font-size:130%; max-width:' + svg_width + 'px; font-weight:bold"> Anomer Permutations: ' + anomerpermutations + '<br>Residue Permutations: ' + residuepermutations + '<br>Residue Deletions: ' + residuedeletions + '</br></br></p> ')
+                            permutationsdiv.append ( '<p style="font-size:130%; max-width:' + svg_width + 'px; font-weight:bold">GlyTouCan ID:<a href="https://glytoucan.org/Structures/Glycans/' + gtcidpermutation + '">' + gtcidpermutation + '</a>' 
+                            + '<br>GlyConnect ID:' + '<a href="https://glyconnect.expasy.org/browser/structures/' + glyconnectidpermutation + '">' + glyconnectidpermutation + '</a></br></p>')
+                            
+                            svg_div_permutation = permutationsdiv.addDiv ( style="float:right; padding-right:10px; " )
+                            permutationindex = permutationindex + 1
                     
-                    svg_div_permutation = permutationsdiv.addDiv ( style="float:right; padding-right:10px; " )
-                    permutationindex = permutationindex + 1
+                        glycanindexforpermutation = glycanindexforpermutation + 1
+            except IndexError:
+                pass
             
-                glycanindexforpermutation = glycanindexforpermutation + 1
+            index = index + 1
                     
 
 
