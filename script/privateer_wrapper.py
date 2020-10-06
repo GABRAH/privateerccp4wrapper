@@ -28,7 +28,7 @@ class privateer(CPluginScript):
 
     TASKMODULE          = 'validation' # Where this plugin will appear on the gui
     TASKNAME            = 'privateer'  # Task name - should be same as class name
-    TASKCOMMAND         = '/home/harold/Dev/privateer_standalone/build/executable/./privateer'  # The command to execute, should be reachable
+    TASKCOMMAND         = 'privateer'  # The command to execute, should be reachable
     WHATNEXT = [ 'coot_rebuild', 'prosmart_refmac' ]
     MAINTAINER = 'jon.agirre@york.ac.uk'
 
@@ -114,6 +114,9 @@ class privateer(CPluginScript):
       if self.container.controlParameters.INVERT == "white" :
         self.appendCommandScript("invert")
 
+      if self.container.controlParameters.GLYTOUCAN:
+        self.appendCommandScript("glytoucan")
+
       if self.container.controlParameters.OLDSTYLE == "original":
         self.appendCommandScript("oldstyle")
 
@@ -122,9 +125,6 @@ class privateer(CPluginScript):
         self.appendCommandScript("blobs_threshold %s"%(str(self.container.controlParameters.BLOBSLEVEL)))
 
       # Need to a fix bug here where I cant put GLyToucan after expression and expression before glytoucan
-
-      if self.container.controlParameters.GLYTOUCAN :
-        self.appendCommandScript("glytoucan")
 
       if self.container.controlParameters.EXPRESSION != "undefined" :
         self.appendCommandScript("expression %s" % (self.container.controlParameters.EXPRESSION) )
