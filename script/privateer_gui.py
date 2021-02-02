@@ -66,7 +66,7 @@ class privateer_gui(CCP4TaskWidget.CTaskWidget):
     self.createLine( [ 'label', 'Validate glycan structures assuming a', 'widget', 'EXPRESSION', 'label', 'expression system' ])
     self.createLine( [ 'widget', 'GLYTOUCAN', 'label', 'Validate Glycans with GlyTouCan and GlyConnect databases'])
     self.openSubFrame ( frame=[False], toggle=[ 'GLYTOUCAN', 'open', [True]] )
-    self.createLine( [ 'widget', 'CLOSESTMATCH', 'label', 'GlyConnect: If modelled glycan is not found in the database, find the closest match via permutation algorithm'])
+    self.createLine( [ 'widget', 'CLOSESTMATCH', 'label', 'GlyConnect: Don\'t look for the closest match, if modelled glycan is not found in the database.'])
     self.createLine( [ 'widget', 'ALLPERMUTATIONS', 'label', 'Conduct all possible permutation combinations(WARNING: Will take a long time to finish, should only be really used for O-Glycans).'])
     self.closeSubFrame ( )
 

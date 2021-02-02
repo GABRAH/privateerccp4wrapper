@@ -323,7 +323,7 @@
             <content id="CLOSESTMATCH">
                 <className>CBoolean</className>
                 <qualifiers>
-                    <default>True</default>
+                    <default>False</default>
                 </qualifiers>
             </content>
 

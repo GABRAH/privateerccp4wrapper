@@ -28,7 +28,7 @@ class privateer(CPluginScript):
 
     TASKMODULE          = 'validation' # Where this plugin will appear on the gui
     TASKNAME            = 'privateer'  # Task name - should be same as class name
-    TASKCOMMAND         = '/home/harold/Dev/privateer_standalone/build/executable/./privateer'  # The command to execute, should be reachable
+    TASKCOMMAND         = '/home/harold/Dev/privateer_master/build/executable/./privateer'  # The command to execute, should be reachable
     WHATNEXT = [ 'coot_rebuild', 'prosmart_refmac' ]
     MAINTAINER = 'jon.agirre@york.ac.uk'
 
@@ -123,6 +123,21 @@ class privateer(CPluginScript):
         
       if self.container.controlParameters.GLYTOUCAN:
         self.appendCommandScript("glytoucan")
+      
+      if self.container.controlParameters.CLOSESTMATCH:
+        self.appendCommandScript("closest_match_disable")
+
+      if self.container.controlParameters.ALLPERMUTATIONS:
+        self.appendCommandScript("all_permutations")
+
+      if self.container.controlParameters.SINGLETHREADED:
+        self.appendCommandScript("singlethreaded")
+
+      if self.container.controlParameters.NUMTHREADS.isSet():
+        self.appendCommandScript("cores %s"%(str(self.container.controlParameters.NUMTHREADS)))
+
+      if self.container.controlParameters.SLEEPTIMER.isSet():
+        self.appendCommandScript("sleep_timer %s"%(str(self.container.controlParameters.SLEEPTIMER)))
 
       # Need to a fix bug here where I cant put GLyToucan after expression and expression before glytoucan
 
