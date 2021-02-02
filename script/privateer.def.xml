@@ -35,7 +35,6 @@
                     <allowUndefined>False</allowUndefined>
                 </qualifiers>
             </content>
-
         </container>
 
         <container id="outputData">
@@ -318,6 +317,47 @@
                 <className>CBoolean</className>
                 <qualifiers>
                     <default>True</default>
+                </qualifiers>
+            </content>
+
+            <content id="CLOSESTMATCH">
+                <className>CBoolean</className>
+                <qualifiers>
+                    <default>True</default>
+                </qualifiers>
+            </content>
+
+            <content id="ALLPERMUTATIONS">
+                <className>CBoolean</className>
+                <qualifiers>
+                    <default>False</default>
+                </qualifiers>
+            </content>
+
+            <content id="SINGLETHREADED">
+                <className>CBoolean</className>
+                <qualifiers>
+                    <default>False</default>
+                </qualifiers>
+            </content>
+            
+            <content id="NUMTHREADS">
+                <className>CInt</className>
+                <qualifiers>
+                    <guiLabel>(max)</guiLabel>
+                    <allowUndefined>True</allowUndefined>
+                    <min>0</min>
+                    <charWidth>3</charWidth>
+                </qualifiers>
+            </content>
+
+            <content id="SLEEPTIMER">
+                <className>CInt</className>
+                <qualifiers>
+                    <default>1</default>
+                    <allowUndefined>False</allowUndefined>
+                    <min>1</min>
+                    <charWidth>4</charWidth>
                 </qualifiers>
             </content>
         </container>

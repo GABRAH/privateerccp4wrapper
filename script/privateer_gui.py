@@ -21,6 +21,7 @@
      Jon Agirre         2014 - Started development
      Jon Agirre         2016 - Revamped for 7.0 release
      Jon Agirre         2019 - New version to support MKIV functionality
+     Haroldas Bagdonas  2021 - New version Privateer MKIV with new functionality.
 
 """
 from PyQt4 import QtGui,QtCore
@@ -54,7 +55,7 @@ class privateer_gui(CCP4TaskWidget.CTaskWidget):
     self.createLine( [ 'widget', 'XYZIN'])
     self.createLine( [ 'widget', 'F_SIGF' ] )
     self.createLine( [ 'label', 'Change the mask radius around the sugar atoms to', 'widget', 'RADIUSIN', 'label', 'Angstroems' ] )
-    self.createLine( [ 'widget', 'BLOBS', 'label', 'EXPERIMENTAL FEATURE: Scan for unmodelled Glycosylation, change Electron Density Blob Threshold level to', 'widget', 'BLOBSLEVEL', 'label' ])
+    # self.createLine( [ 'widget', 'BLOBS', 'label', 'EXPERIMENTAL FEATURE: Scan for unmodelled Glycosylation, change Electron Density Blob Threshold level to', 'widget', 'BLOBSLEVEL', 'label' ])
     self.closeSubFrame ( )
 
     self.createLine( [ 'subtitle', 'Glycosylation analysis', 'Here you can set up how the diagrams will look like. The schemes will follow the Essentials of glycobiology 3rd edition notation with a choice of colours. They are vector-based and can be used in publications straight away.' ] )
@@ -64,6 +65,9 @@ class privateer_gui(CCP4TaskWidget.CTaskWidget):
     self.createLine( [ 'label', 'Colour them using the' , 'widget', 'ESSENTIALS' , 'label' , 'colour scheme with ', 'widget', 'INVERT', 'label', 'outlines' ])
     self.createLine( [ 'label', 'Validate glycan structures assuming a', 'widget', 'EXPRESSION', 'label', 'expression system' ])
     self.createLine( [ 'widget', 'GLYTOUCAN', 'label', 'Validate Glycans with GlyTouCan and GlyConnect databases'])
+    self.openSubFrame ( frame=[False], toggle=[ 'GLYTOUCAN', 'open', [True]] )
+    self.createLine( [ 'widget', 'CLOSESTMATCH', 'label', 'GlyConnect: If modelled glycan is not found in the database, find the closest match via permutation algorithm'])
+    self.createLine( [ 'widget', 'ALLPERMUTATIONS', 'label', 'Conduct all possible permutation combinations(WARNING: Will take a long time to finish, should only be really used for O-Glycans).'])
     self.closeSubFrame ( )
 
     self.createLine( [ 'label', '&nbsp;' ])
@@ -75,6 +79,17 @@ class privateer_gui(CCP4TaskWidget.CTaskWidget):
     self.createLine( [ 'label', 'Expected minimal energy ring conformation:', 'widget', 'CONFORMATION_FURANOSE' ], toggle=[ 'RING_TYPE', 'open', 'furanose'] )
     self.createLine( [ 'label', 'Ring atoms: ', 'widget', 'RING_OXYGEN', 'widget', 'RING_C1', 'widget', 'RING_C2', 'widget', 'RING_C3', 'widget', 'RING_C4', 'widget', 'RING_C5' ], toggle=[ 'RING_TYPE', 'open', 'pyranose'] )
     self.createLine( [ 'label', 'Ring atoms: ', 'widget', 'RING_OXYGEN', 'widget', 'RING_C1', 'widget', 'RING_C2', 'widget', 'RING_C3', 'widget', 'RING_C4' ], toggle=[ 'RING_TYPE', 'open', 'furanose'] )
+    self.closeSubFrame ( )
+
+    self.createLine( [ 'label', '&nbsp;' ])
+    self.createLine( [ 'subtitle', 'Performance settings', 'Here you can tweak performance related settings, such as whether to run Privateer with a single CPU thread or customize the number of CPU threads to run Privateer with. Privateer is tweaked by default to try to obtain best performance possible that is offered by the computer, i.e. use maximum number of threads available.' ] )
+    self.openSubFrame ( frame=[True] )
+    self.createLine( [ 'widget', 'SINGLETHREADED', 'label', 'Run Privateer in a Single Threaded mode - No Parallelism.'])
+    self.closeSubFrame ( )
+    self.createLine( [ 'subtitle', 'Privateer\'s parallelism settings', 'If Privateer suddenly crashes with default arguments and are caused by random segfaults, tweaking these settings might be of help.' ], toggle=[ 'SINGLETHREADED', 'open', [False]] )
+    self.openSubFrame ( frame=[True], toggle=[ 'SINGLETHREADED', 'open', [False]] )
+    self.createLine( [ 'label', 'Run Privateer with', 'widget', 'NUMTHREADS', 'label', 'threads.' ] )
+    self.createLine( [ 'label', 'Set thread sleep timer between crucial join steps to: ', 'widget', 'SLEEPTIMER' ] )
     self.closeSubFrame ( )
 
     self.connect ( self.container.controlParameters.NEW_SUGAR, QtCore.SIGNAL('dataChanged'), self.updateRequirements )
