@@ -317,6 +317,7 @@
                 <className>CBoolean</className>
                 <qualifiers>
                     <default>True</default>
+                    <toolTip>This option atrempts to retrieve GlyTouCan and GlyConnect IDs for the modelled Glycan. The query is done offline in "$CINCL/privateer/database.json" file</toolTip>
                 </qualifiers>
             </content>
 
@@ -324,12 +325,14 @@
                 <className>CBoolean</className>
                 <qualifiers>
                     <default>False</default>
+                    <toolTip>This option disables the search of a closest match on GlyConnect database if the originally modelled Glycan is not found on the GlyConnect database. If this option is "ticked", it also makes the option of ALLPERMUTATIONS to be inconsequential.</toolTip>
                 </qualifiers>
             </content>
 
             <content id="ALLPERMUTATIONS">
                 <className>CBoolean</className>
                 <qualifiers>
+                    <toolTip>This enables computation of all possible permutation combinations in relation to finding the closest match on GlyConnect database. This option should only really be used for O-glycans.</toolTip>
                     <default>False</default>
                 </qualifiers>
             </content>
@@ -337,6 +340,7 @@
             <content id="SINGLETHREADED">
                 <className>CBoolean</className>
                 <qualifiers>
+                    <toolTip>If your computer's CPU doesn't have multiple cores or doesn't support parallelism, this option allows to turn off parallel algorithms and force them to run in single threaded mode.</toolTip>
                     <default>False</default>
                 </qualifiers>
             </content>
@@ -344,7 +348,7 @@
             <content id="NUMTHREADS">
                 <className>CInt</className>
                 <qualifiers>
-                    <guiLabel>(max)</guiLabel>
+                    <toolTip>Leave this field blank to run Privateer with maximum number of threads that are available in the computer's CPU.</toolTip>
                     <allowUndefined>True</allowUndefined>
                     <min>0</min>
                     <charWidth>3</charWidth>
@@ -354,6 +358,7 @@
             <content id="SLEEPTIMER">
                 <className>CInt</className>
                 <qualifiers>
+                    <toolTip>Some parallel algorithms in Privateer are prone to having race conditions, thus causing random segmentation fault errors. As a solution, a sleep timer is implemented to make sure that multiple threads get synchronized. If you are having random segmentation faults, this option might be useful to tweak around.</toolTip>
                     <default>1</default>
                     <allowUndefined>False</allowUndefined>
                     <min>1</min>

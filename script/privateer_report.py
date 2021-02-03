@@ -255,50 +255,51 @@ class privateer_report(Report):
                     else:
                         svg_div.append ( '<p style="font-size:130%; max-width:' + svg_width + 'px; font-weight:bold">GlyConnect ID: ' + 'Not Found' + ' </p> ')
                         
-                        permutationsFold = svg_div.addFold ( label="Closest permutations detected on GlyConnect database", initiallyOpen=False )
-                        permutationsdiv = permutationsFold.addDiv(style="border-width: 1px; padding-top: 10px; padding-bottom:10px; border-color:black; border-style:solid; border-radius:15px;")
-                        
-                        for permutation in self.xmlnode.xpath ( "//ValidationData/Glycan/GlycanPermutations" )[glycanindexforpermutation]:
-                            wurcspermutation = self.xmlnode.xpath ( "//ValidationData/Glycan/GlycanPermutations/GlycanPermutation/PermutationWURCS" )[permutationindex].text
-                            gtcidpermutation = self.xmlnode.xpath ( "//ValidationData/Glycan/GlycanPermutations/GlycanPermutation/PermutationGTCID" )[permutationindex].text
-                            glyconnectidpermutation = self.xmlnode.xpath ( "//ValidationData/Glycan/GlycanPermutations/GlycanPermutation/PermutationGlyConnectID" )[permutationindex].text
-                            permutationsvg = self.xmlnode.xpath ( "//ValidationData/Glycan/GlycanPermutations/GlycanPermutation/PermutationSVG" )[permutationindex].text
-                            permutationscore = self.xmlnode.xpath ( "//ValidationData/Glycan/GlycanPermutations/GlycanPermutation/PermutationScore" )[permutationindex].text
-                            anomerpermutations = self.xmlnode.xpath ( "//ValidationData/Glycan/GlycanPermutations/GlycanPermutation/anomerPermutations" )[permutationindex].text
-                            residuepermutations = self.xmlnode.xpath ( "//ValidationData/Glycan/GlycanPermutations/GlycanPermutation/residuePermutations" )[permutationindex].text
-                            residuedeletions = self.xmlnode.xpath ( "//ValidationData/Glycan/GlycanPermutations/GlycanPermutation/residueDeletions" )[permutationindex].text
-
-                            svg_filename_permutation = os.path.join ( directory, permutationsvg )
-
-                            svg_file_permutation = open(svg_filename_permutation, 'r')
-                            svg_string_permutation = svg_file_permutation.read()
-                            svg_file_permutation.close()
-
-                            # svg_string_partitioned_permutation = svg_string_permutation.partition("width=\"")
-                            # svg_width_permutation = ''
-                            # for symbol in svg_string_partitioned_permutation[2]:
-                            #     if symbol != "\"":
-                            #         svg_width_permutation = svg_width_permutation + symbol
-                            #     else:
-                            #         break
-
-                            permutationsdiv.append ( svg_string_permutation )
+                        if self.xmlnode.xpath ( "//ValidationData/Glycan" )[index].find('GlycanPermutations') != None:
+                            permutationsFold = svg_div.addFold ( label="Closest permutations detected on GlyConnect database", initiallyOpen=False )
+                            permutationsdiv = permutationsFold.addDiv(style="border-width: 1px; padding-top: 10px; padding-bottom:10px; border-color:black; border-style:solid; border-radius:15px;")
                             
-                            permutationsdiv.append ( '<p style="font-size:130%; max-width:' + svg_width + 'px; font-weight:bold"> ' + wurcspermutation + ' </p> ')
-                            if float(permutationscore) <= 1.00:
-                                permutationsdiv.append ( '<p style="font-size:130%; max-width:' + svg_width + 'px; font-weight:bold"> Permutation Score(out of 100): <span style="color: #00ff00">' + permutationscore + '</span></p> ')
-                            elif float(permutationscore) > 1.00 and float(permutationscore) <= 10.00:
-                                permutationsdiv.append ( '<p style="font-size:130%; max-width:' + svg_width + 'px; font-weight:bold"> Permutation Score(out of 100): <span style="color: #ffa500">' + permutationscore + '</span></p> ')
-                            elif float(permutationscore) > 10.00:
-                                permutationsdiv.append ( '<p style="font-size:130%; max-width:' + svg_width + 'px; font-weight:bold"> Permutation Score(out of 100): <span style="color: #ff3300">' + permutationscore + '</span></p> ')
-                            permutationsdiv.append ( '<p style="font-size:130%; max-width:' + svg_width + 'px; font-weight:bold"> Anomer Permutations: ' + anomerpermutations + '<br>Residue Permutations: ' + residuepermutations + '<br>Residue Deletions: ' + residuedeletions + '</br></br></p> ')
-                            permutationsdiv.append ( '<p style="font-size:130%; max-width:' + svg_width + 'px; font-weight:bold">GlyTouCan ID:<a href="https://glytoucan.org/Structures/Glycans/' + gtcidpermutation + '">' + gtcidpermutation + '</a>' 
-                            + '<br>GlyConnect ID:' + '<a href="https://glyconnect.expasy.org/browser/structures/' + glyconnectidpermutation + '">' + glyconnectidpermutation + '</a></br></p>')
-                            
-                            svg_div_permutation = permutationsdiv.addDiv ( style="float:right; padding-right:10px; " )
-                            permutationindex = permutationindex + 1
+                            for permutation in self.xmlnode.xpath ( "//ValidationData/Glycan/GlycanPermutations" )[glycanindexforpermutation]:
+                                wurcspermutation = self.xmlnode.xpath ( "//ValidationData/Glycan/GlycanPermutations/GlycanPermutation/PermutationWURCS" )[permutationindex].text
+                                gtcidpermutation = self.xmlnode.xpath ( "//ValidationData/Glycan/GlycanPermutations/GlycanPermutation/PermutationGTCID" )[permutationindex].text
+                                glyconnectidpermutation = self.xmlnode.xpath ( "//ValidationData/Glycan/GlycanPermutations/GlycanPermutation/PermutationGlyConnectID" )[permutationindex].text
+                                permutationsvg = self.xmlnode.xpath ( "//ValidationData/Glycan/GlycanPermutations/GlycanPermutation/PermutationSVG" )[permutationindex].text
+                                permutationscore = self.xmlnode.xpath ( "//ValidationData/Glycan/GlycanPermutations/GlycanPermutation/PermutationScore" )[permutationindex].text
+                                anomerpermutations = self.xmlnode.xpath ( "//ValidationData/Glycan/GlycanPermutations/GlycanPermutation/anomerPermutations" )[permutationindex].text
+                                residuepermutations = self.xmlnode.xpath ( "//ValidationData/Glycan/GlycanPermutations/GlycanPermutation/residuePermutations" )[permutationindex].text
+                                residuedeletions = self.xmlnode.xpath ( "//ValidationData/Glycan/GlycanPermutations/GlycanPermutation/residueDeletions" )[permutationindex].text
+
+                                svg_filename_permutation = os.path.join ( directory, permutationsvg )
+
+                                svg_file_permutation = open(svg_filename_permutation, 'r')
+                                svg_string_permutation = svg_file_permutation.read()
+                                svg_file_permutation.close()
+
+                                # svg_string_partitioned_permutation = svg_string_permutation.partition("width=\"")
+                                # svg_width_permutation = ''
+                                # for symbol in svg_string_partitioned_permutation[2]:
+                                #     if symbol != "\"":
+                                #         svg_width_permutation = svg_width_permutation + symbol
+                                #     else:
+                                #         break
+
+                                permutationsdiv.append ( svg_string_permutation )
+                                
+                                permutationsdiv.append ( '<p style="font-size:130%; max-width:' + svg_width + 'px; font-weight:bold"> ' + wurcspermutation + ' </p> ')
+                                if float(permutationscore) <= 1.00:
+                                    permutationsdiv.append ( '<p style="font-size:130%; max-width:' + svg_width + 'px; font-weight:bold"> Permutation Score(out of 100): <span style="color: #00ff00">' + permutationscore + '</span></p> ')
+                                elif float(permutationscore) > 1.00 and float(permutationscore) <= 10.00:
+                                    permutationsdiv.append ( '<p style="font-size:130%; max-width:' + svg_width + 'px; font-weight:bold"> Permutation Score(out of 100): <span style="color: #ffa500">' + permutationscore + '</span></p> ')
+                                elif float(permutationscore) > 10.00:
+                                    permutationsdiv.append ( '<p style="font-size:130%; max-width:' + svg_width + 'px; font-weight:bold"> Permutation Score(out of 100): <span style="color: #ff3300">' + permutationscore + '</span></p> ')
+                                permutationsdiv.append ( '<p style="font-size:130%; max-width:' + svg_width + 'px; font-weight:bold"> Anomer Permutations: ' + anomerpermutations + '<br>Residue Permutations: ' + residuepermutations + '<br>Residue Deletions: ' + residuedeletions + '</br></br></p> ')
+                                permutationsdiv.append ( '<p style="font-size:130%; max-width:' + svg_width + 'px; font-weight:bold">GlyTouCan ID:<a href="https://glytoucan.org/Structures/Glycans/' + gtcidpermutation + '">' + gtcidpermutation + '</a>' 
+                                + '<br>GlyConnect ID:' + '<a href="https://glyconnect.expasy.org/browser/structures/' + glyconnectidpermutation + '">' + glyconnectidpermutation + '</a></br></p>')
+                                
+                                svg_div_permutation = permutationsdiv.addDiv ( style="float:right; padding-right:10px; " )
+                                permutationindex = permutationindex + 1
                     
-                        glycanindexforpermutation = glycanindexforpermutation + 1
+                            glycanindexforpermutation = glycanindexforpermutation + 1
             except IndexError:
                 pass
             
