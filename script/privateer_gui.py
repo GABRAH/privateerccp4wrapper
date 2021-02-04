@@ -89,7 +89,7 @@ class privateer_gui(CCP4TaskWidget.CTaskWidget):
     self.createLine( [ 'subtitle', 'Privateer\'s parallelism settings', 'If Privateer suddenly crashes with default arguments and are caused by random segfaults, tweaking these settings might be of help.' ], toggle=[ 'SINGLETHREADED', 'open', [False]] )
     self.openSubFrame ( frame=[True], toggle=[ 'SINGLETHREADED', 'open', [False]] )
     self.createLine( [ 'label', 'Run Privateer with', 'widget', 'NUMTHREADS', 'label', 'threads.' ] )
-    self.createLine( [ 'label', 'Set thread sleep timer between crucial join steps to: ', 'widget', 'SLEEPTIMER' ] )
+    self.createLine( [ 'label', 'Set thread sleep timer between crucial join steps to: ', 'widget', 'SLEEPTIMER', 'label', 'second(s).' ] )
     self.closeSubFrame ( )
 
     self.connect ( self.container.controlParameters.NEW_SUGAR, QtCore.SIGNAL('dataChanged'), self.updateRequirements )
