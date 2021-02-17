@@ -20,3 +20,12 @@
   publisher={Nature Publishing Group}
 }
 
+@article{bagdonas_ungar_agirre_2020,
+  title={Leveraging glycomics data in glycoprotein 3D structure validation with Privateer},
+  volume={16},
+  DOI={10.3762/bjoc.16.204}, 
+  journal={Beilstein Journal of Organic Chemistry}, 
+  author={Bagdonas, Haroldas and Ungar, Daniel and Agirre, Jon}, 
+  year={2020}, 
+  pages={2523--2533}
+}
