@@ -302,9 +302,9 @@
 
   <cmake id="ample">
     <branch repo="github-zip"
-            version="1.5.4"
+            version="1.5.5"
             module="rigdenlab/ample/archive/${version}.zip"
-            hash="sha256:8a88c1dcbf3992749cfbdc90d2319be267a3f21a90d338fef37ca1c49946ec80"
+            hash="sha256:400d2f454b20b5504a137b8e42a4c6af41acf4f29c7a49c058089d4fcfd219f0"
             checkoutdir="ample">
     </branch>
     <dependencies>
@@ -528,7 +528,7 @@
           configure="sh ${srcdir}/autogen.sh ${prefix} ${libdir}"
           build="${}" install="${}" clean="${}"
           supports-non-srcdir-builds="yes">
-    <branch repo="files" version="2020-03.04"
+    <branch repo="files" version="2020-03.06"
             module="cctbx-${version}.tar.gz"
             checkoutdir="cctbx-packages" >
       <patch file="cctbx-autogen.patch" strip="0" />
@@ -668,14 +668,14 @@
 
   <cmake id="privateer">
     <branch repo="github"
-	    module="GABRAH/privateer.git">
+      module="GABRAH/privateer.git"
+      checkoutdir="ccp4">
     </branch>
     <dependencies>
       <dep package="nlohmann-json"/>
       <dep package="clipper"/>
       <dep package="gemmi"/>
       <dep package="ccp4srs"/>
-      <dep package="python"/>
     </dependencies>
   </cmake>
 
@@ -843,18 +843,16 @@ install intltool libfontconfig1-dev libxrender-dev
     <branch repo="mrc_coot"
             module="source/releases/coot-${version}.tar.gz"
             checkoutdir="coot9" 
-            version="0.9">
+            version="0.9.4.1">
       <patch file="coot-coot-in.patch" strip="0" />
       <patch file="coot-syminfo.patch" strip="0" />
       <patch file="coot-main-title.patch" strip="0"/>
       <patch file="coot-unfog-bitmap.patch" strip="0"/>
-      <patch file="coot-view.patch" strip="0"/>
       <patch file="coot-cfc.patch" strip="0"/>
-      <patch file="coot-optarg.patch" strip="1"/> <!-- optargs workaround -->
-      <patch file="coot-optind.patch" strip="0"/> <!-- optargs workaround -->
       <patch file="coot-cld.patch" strip="1"/> <!-- cld out of scope -->
-      <patch file="coot-geometry-graph-crash.patch" strip="0"/> <!--coot 0.9-->
-      <patch file="dynamically-transformed-ncs-ghost-maps-rr-bug-fix.patch" strip="0" /> <!--coot 0.9-->
+      <patch file="coot-0-9-3-hardware-stereo.patch" strip="0"/> <!--coot patch 30ec64c-->
+      <patch file="coot-make-check-linking.patch" strip="1"/>
+      <patch file="coot-rdkit-backport.patch" strip="1"/> <!-- rdkit 2018 back to 2017-->
     </branch>
     <dependencies>
       <dep package="swig"/>
@@ -1364,7 +1362,7 @@ install intltool libfontconfig1-dev libxrender-dev
     </dependencies>
   </autotools>
 
-  <autotools id="guile" autogenargs="--disable-rpath --disable-error-on-warning">
+  <autotools id="guile" autogenargs="--disable-rpath --disable-error-on-warning --bindir=${prefix}/libexec">
     <branch repo="gnu" module="gnu/guile/guile-1.8.8.tar.gz"
             version="1.8.8" size="3956654"
             hash="sha256:c3471fed2e72e5b04ad133bbaaf16369e8360283679bcf19800bc1b381024050">
@@ -1997,7 +1995,7 @@ install intltool libfontconfig1-dev libxrender-dev
   <repository type="tarball" name="jpeg" href="http://www.ijg.org/files/"/>
   <autotools id="libjpeg" autogenargs="--bindir=${prefix}/devbin">
     <branch repo="jpeg" module="jpegsrc.v${version}.tar.gz" version="9c"
-            size="1028134" checkoutdir="jpeg-${version}"/>
+            size="1028003" checkoutdir="jpeg-${version}"/>
   </autotools>
 
   <autotools id="libpng"
@@ -2171,7 +2169,7 @@ install intltool libfontconfig1-dev libxrender-dev
     <if condition-set="darwin">
       <configure value=" -libdir ${prefix}/Frameworks" />
     </if>
-    <branch repo="qt4" version="4.8.7" size="241075567"
+    <branch repo="files" version="4.8.7" size="241075567"
             module="4.8/4.8.7/qt-everywhere-opensource-src-4.8.7.tar.gz">
     <!--patch for post 10.6 os x-->
       <patch file="qt4-qpaintengine-mac.patch" strip="0"/>
@@ -2214,7 +2212,7 @@ install intltool libfontconfig1-dev libxrender-dev
     configure="${srcdir}/configure.exe -prefix ${drive-prefix} -bindir ${drive-prefix}/devbin -plugindir ${drive-prefix}/lib/qt4/plugins -fontconfig -opengl desktop -release -opensource -xmlpatterns -no-3dnow -no-neon -no-qt3support -qt-libmng -no-native-gestures -no-phonon -no-phonon-backend -no-multimedia -no-audio-backend -webkit -no-declarative -no-declarative-debug -no-scripttools -no-cups -no-openvg -no-s60 -nomake examples -nomake demos -nomake tools -confirm-license"
    build="${}" install="make INSTALL_ROOT=${prefix}/_jhbuild/root-qt4 install" clean="${}"
    supports-non-srcdir-builds="yes">
-    <branch repo="qt4" version="4.8.7" size="281457960"
+    <branch repo="files" version="4.8.7" size="281457960"
       module="4.8/4.8.7/qt-everywhere-opensource-src-4.8.7.zip" checkoutdir="qt4">
     <!--patch for post 10.6 os x-->
       <patch file="qt4-qpaintengine-mac.patch" strip="0"/>
@@ -2399,13 +2397,13 @@ install intltool libfontconfig1-dev libxrender-dev
   </custom>
 
   <custom id="arcimboldo-whl"
-          build="cp ../arcimboldo-1.0.8-py2.py3-none-any.whl ."
-          install="pip install --no-deps arcimboldo-1.0.8-py2.py3-none-any.whl --root=${destdir}${prefix}">
+          build="cp ../arcimboldo-1.0.11-py2.py3-none-any.whl ."
+          install="pip install --no-deps arcimboldo-1.0.11-py2.py3-none-any.whl --target=${destdir}${prefix}">
     <branch repo="pythonhosted"
-            module="81/14/fb1cbb646a1532839fbadeed1637ada4c724ac36e0e5d77422ff4eb6ff1c/arcimboldo-1.0.8-py2.py3-none-any.whl"
-            version="1.0.8"
+            module="67/7b/954dc77c0b358ab2b7e6b01e8be6ae98a84791d943a75f9820df895032fb/arcimboldo-1.0.11-py2.py3-none-any.whl"
+            version="1.0.11"
             checkoutdir="acrimboldo"
-            hash="sha256:1cf0d53185413faa8a020eef8fd3cf3b80ca721c4df7ee560e6ecc61e2885dbc"/>
+            hash="sha256:ec70bc15bf462c6b494f501c4db7d468e50c6e2c2ccd1e69ab9f385834b75f24"/>
     <dependencies>
         <dep package="biopython"/>
         <dep package="matplotlib"/>
@@ -2675,7 +2673,9 @@ install intltool libfontconfig1-dev libxrender-dev
   <distutils id="panddas" distbuildargs="--for-ccp4">
     <branch repo="pypi" version="0.2.14" size="16154939"
             module="cb/1e/a2d9df690d317752b495719fcea43c2183736e49ace831877692f7e5b653/panddas-0.2.14.tar.gz"
-            hash="sha256:843a809221e86630742acc0ac4b27a385171b87c72841dd78e7fd4be2444aa4d" />
+            hash="sha256:843a809221e86630742acc0ac4b27a385171b87c72841dd78e7fd4be2444aa4d" >
+      <patch file="panddas-rcsb.patch" strip="0"/>
+    </branch>
     <dependencies>
       <dep package="numpy"/>
       <dep package="pandas"/>
@@ -2740,9 +2740,9 @@ install intltool libfontconfig1-dev libxrender-dev
 
   <cmake id="simbad">
     <branch repo="github-zip"
-            version="0.2.2"
+            version="0.2.3"
             module="rigdenlab/simbad/archive/${version}.zip"
-            hash="sha256:fff8199ff5748e59afb83bfe18327a5c624755797d9731d719611425d2a4d312"
+            hash="sha256:cd19db87cf76861f0184126ca21ffd93f620692873c5a19fee0b66d24cb3e9ed"
             checkoutdir="simbad">
     </branch>
     <dependencies>
@@ -2770,10 +2770,10 @@ install intltool libfontconfig1-dev libxrender-dev
     <branch repo="github" module="GarmanGroup/RABDAM.git"/>-->
     <!-- or from github-zip when have release -->
     <branch repo="github-zip"
-            version="1.5.1"
+            version="1.6.1"
             module="GarmanGroup/RABDAM/archive/v${version}.zip"
             checkoutdir="rabdam">
-      <patch file="rabdam.patch" strip="0"/>
+        <patch file="rabdam_output.patch" strip="0" />
     </branch>
     <dependencies>
       <dep package="numpy"/>
@@ -2902,6 +2902,7 @@ install intltool libfontconfig1-dev libxrender-dev
             size="1619421"
             checkoutdir="gemmi-${version}">
       <patch file="gemmi-cmakelists.patch" strip="0"/>
+      <patch file="gemmi-fstream-hpp.patch" strip="0"/>
     </branch>
     <dependencies>
       <dep package="pybind11"/>
@@ -2942,6 +2943,7 @@ install intltool libfontconfig1-dev libxrender-dev
       <if condition-set="python">
         <dep package="python"/>
         <dep package="setuptools"/>
+        <dep package="certifi"/>
       </if>
       <if condition-set="qt">
         <dep package="qt4"/>
@@ -3697,6 +3699,17 @@ install intltool libfontconfig1-dev libxrender-dev
     </after>
   </distutils>
 
+  <distutils id="certifi">
+    <branch repo="pypi"
+      module="b8/e2/a3a86a67c3fc8249ed305fc7b7d290ebe5e4d46ad45573884761ef4dea7b/certifi-2020.4.5.1.tar.gz"
+      version="2020.4.5.1" 
+      hash="sha256:51fcb31174be6e6664c5f69e3e1691a2d72a1a12e90f872cbdb1567eb47b6519" />
+    <after>
+      <dep package="python"/>
+      <dep package="setuptools"/>
+    </after>
+  </distutils>
+
 <!-- experimental -->
 
   <custom id="mrc" 
@@ -3777,7 +3790,7 @@ install intltool libfontconfig1-dev libxrender-dev
 
 <!-- none virtual system dependencies -->
 
-  <repository type="tarball" name="cmake" href="http://www.cmake.org/files/"/>
+  <repository type="tarball" name="cmake" href="https://www.cmake.org/files/"/>
   <autotools id="cmake"
              autogen-template="%(srcdir)s/bootstrap --prefix=%(prefix)s">
     <branch module="v3.12/cmake-${version}.tar.gz"
