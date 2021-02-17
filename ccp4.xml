@@ -669,7 +669,7 @@
   <cmake id="privateer">
     <branch repo="github"
       module="GABRAH/privateer.git"
-      checkoutdir="ccp4">
+      revision="ccp4">
     </branch>
     <dependencies>
       <dep package="nlohmann-json"/>
