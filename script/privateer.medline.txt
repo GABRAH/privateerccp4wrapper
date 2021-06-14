@@ -105,3 +105,71 @@ AID - nchembio.1798 [pii]
 AID - 10.1038/nchembio.1798 [doi]
 PST - ppublish
 SO  - Nat Chem Biol. 2015 May;11(5):303. doi: 10.1038/nchembio.1798.
+
+
+
+PMID- 33093930
+OWN - NLM
+STAT- PubMed-not-MEDLINE
+LR  - 20210203
+IS  - 1860-5397 (Print)
+IS  - 1860-5397 (Electronic)
+IS  - 1860-5397 (Linking)
+VI  - 16
+DP  - 2020
+TI  - Leveraging glycomics data in glycoprotein 3D structure validation with Privateer.
+PG  - 2523-2533
+LID - 10.3762/bjoc.16.204 [doi]
+AB  - The heterogeneity, mobility and complexity of glycans in glycoproteins have been, 
+      and currently remain, significant challenges in structural biology. These aspects 
+      present unique problems to the two most prolific techniques: X-ray crystallography 
+      and cryo-electron microscopy. At the same time, advances in mass spectrometry have 
+      made it possible to get deeper insights on precisely the information that is most 
+      difficult to recover by structure solution methods: the full-length glycan 
+      composition, including linkage details for the glycosidic bonds. The developments 
+      have given rise to glycomics. Thankfully, several large scale glycomics initiatives 
+      have stored results in publicly available databases, some of which can be accessed 
+      through API interfaces. In the present work, we will describe how the Privateer 
+      carbohydrate structure validation software has been extended to harness results from 
+      glycomics projects, and its use to greatly improve the validation of 3D glycoprotein 
+      structures.
+CI  - Copyright © 2020, Bagdonas et al.; licensee Beilstein-Institut.
+FAU - Bagdonas, Haroldas
+AU  - Bagdonas H
+AUID- ORCID: 0000-0001-5028-4847
+AD  - York Structural Biology Laboratory, Department of Chemistry, University of York, 
+      Wentworth Way, York, YO10 5DD, UK.
+FAU - Ungar, Daniel
+AU  - Ungar D
+AUID- ORCID: 0000-0002-9852-6160
+AD  - Department of Biology, University of York, Wentworth Way, York, YO10 5DD, UK.
+FAU - Agirre, Jon
+AU  - Agirre J
+AUID- ORCID: 0000-0002-1086-0253
+AD  - York Structural Biology Laboratory, Department of Chemistry, University of York, 
+      Wentworth Way, York, YO10 5DD, UK.
+LA  - eng
+PT  - Journal Article
+DEP - 20201009
+TA  - Beilstein J Org Chem
+JT  - Beilstein journal of organic chemistry
+JID - 101250746
+PMC - PMC7554661
+OTO - NOTNLM
+OT  - Privateer
+OT  - X-ray crystallography
+OT  - electron cryomicroscopy
+OT  - glycoinformatics
+OT  - glycomics
+EDAT- 2020/10/24 06:00
+MHDA- 2020/10/24 06:01
+CRDT- 2020/10/23 05:57
+PHST- 2020/07/18 00:00 [received]
+PHST- 2020/10/06 00:00 [accepted]
+PHST- 2020/10/23 05:57 [entrez]
+PHST- 2020/10/24 06:00 [pubmed]
+PHST- 2020/10/24 06:01 [medline]
+AID - 10.3762/bjoc.16.204 [doi]
+PST - epublish
+SO  - Beilstein J Org Chem. 2020 Oct 9;16:2523-2533. doi: 10.3762/bjoc.16.204. eCollection 
+      2020.
