@@ -27,7 +27,6 @@ from core import CCP4ErrorHandling
 class privateer(CPluginScript):
 
     TASKMODULE          = 'validation' # Where this plugin will appear on the gui
-    TASKNAME            = 'privateer'  # Task name - should be same as class name
     # TASKCOMMAND         = '/home/harold/Dev/privateer_master/build/executable/./privateer'  # The command to execute, should be reachable
     TASKCOMMAND         = 'privateer'  # The command to execute, should be reachable
     WHATNEXT = [ 'coot_rebuild', 'prosmart_refmac' ]
@@ -130,9 +129,6 @@ class privateer(CPluginScript):
 
       if self.container.controlParameters.ALLPERMUTATIONS:
         self.appendCommandScript("all_permutations")
-
-      if self.container.controlParameters.SINGLETHREADED:
-        self.appendCommandScript("singlethreaded")
 
       if self.container.controlParameters.NUMTHREADS.isSet():
         self.appendCommandScript("cores %s"%(str(self.container.controlParameters.NUMTHREADS)))
