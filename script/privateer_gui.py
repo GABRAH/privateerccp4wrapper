@@ -90,7 +90,6 @@ class privateer_gui(CCP4TaskWidget.CTaskWidget):
     self.createLine( [ 'subtitle', 'Performance settings', 'Here you can tweak performance related settings, such as whether to run Privateer with a single CPU thread or customize the number of CPU threads to run Privateer with. Privateer is tweaked by default to try to obtain best performance possible that is offered by the computer, i.e. use maximum number of threads available.' ] )
     self.openSubFrame ( frame=[True] )
     self.createLine( [ 'label', 'Run Privateer with', 'widget', 'NUMTHREADS', 'label', 'threads.' ] )
-    self.createLine( [ 'label', 'Set thread sleep timer between crucial join steps to: ', 'widget', 'SLEEPTIMER', 'label', 'second(s).' ] )
     self.closeSubFrame ( )
 
     self.closeFolder()

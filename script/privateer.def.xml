@@ -355,16 +355,6 @@
                 </qualifiers>
             </content>
 
-            <content id="SLEEPTIMER">
-                <className>CInt</className>
-                <qualifiers>
-                    <toolTip>Some parallel algorithms in Privateer are prone to having race conditions, thus causing random segmentation fault errors. As a solution, a sleep timer is implemented to make sure that multiple threads get synchronized. If you are having random segmentation faults, this option might be useful to tweak around.</toolTip>
-                    <default>1</default>
-                    <allowUndefined>False</allowUndefined>
-                    <min>1</min>
-                    <charWidth>4</charWidth>
-                </qualifiers>
-            </content>
         </container>
 
     </ccp4i2_body>

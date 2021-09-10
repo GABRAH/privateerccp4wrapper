@@ -133,9 +133,6 @@ class privateer(CPluginScript):
       if self.container.controlParameters.NUMTHREADS.isSet():
         self.appendCommandScript("cores %s"%(str(self.container.controlParameters.NUMTHREADS)))
 
-      if self.container.controlParameters.SLEEPTIMER.isSet():
-        self.appendCommandScript("sleep_timer %s"%(str(self.container.controlParameters.SLEEPTIMER)))
-
       # Need to a fix bug here where I cant put GLyToucan after expression and expression before glytoucan
 
       if self.container.controlParameters.EXPRESSION != "undefined" :
